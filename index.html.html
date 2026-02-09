@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ely Bella 💘</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff5f8d,#ffc3a0);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px;
+}
+
+.card{
+  background:rgba(255,255,255,0.96);
+  border-radius:30px;
+  padding:36px;
+  max-width:500px;
+  width:100%;
+  text-align:center;
+  box-shadow:0 22px 40px rgba(0,0,0,.25);
+  position: relative;
+}
+
+h1{color:#e63946;margin-bottom:10px;}
+p{color:#444;font-size:16px;}
+
+/* SLIDESHOW */
+.slideshow{
+  position: relative;
+  width:100%;
+  height:300px;        /* ⬆️ más alto */
+  margin:26px 0;      /* ⬆️ más espacio arriba y abajo */
+  overflow:hidden;
+  border-radius:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+
+.slide{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transform:scale(1);
+  transition:opacity 1.8s ease-in-out;
+}
+
+/* FOTO ACTIVA */
+.slide.active{
+  opacity:1;
+}
+
+/* BOTONES */
+.btn{
+  padding:12px;
+  width:70%;
+  margin:10px auto 0 auto;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  display:block;
+}
+
+.si{
+  background:#e63946;
+  color:white;
+}
+
+.no{
+  background:#adb5bd;
+  color:white;
+  position:absolute;
+}
+
+/* RESULTADO */
+.result{
+  margin-top:20px;
+  font-size:18px;
+  font-weight:bold;
+  color:#1d3557;
+}
+
+/* CORAZONES */
+.heart{
+  position:absolute;
+  font-size:18px;
+  color:rgba(255,255,255,.7);
+  animation:flotar 6s linear infinite;
+}
+
+@keyframes flotar{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* 📱 OPTIMIZACIÓN MÓVIL */
+@media (max-width:480px){
+  .card{
+    padding:28px;
+    border-radius:24px;
+  }
+
+  .slideshow{
+    height:220px;
+  }
+
+  p{font-size:15px;}
+  h3{font-size:17px;}
+
+  .btn{
+    width:85%;
+    font-size:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <h1>Pingüinita 💖</h1>
+
+  <p>
+    Sin pensarlo y sin buscarlo,<br>
+    llegaste a mi vida en el momento perfecto<br>
+    y desde entonces, en mi mente te refugiaste<br>
+    y a mi corazón te mudaste ✨
+  </p>
+
+  <div class="slideshow">
+    <img src="./foto1.jpeg" class="slide active">
+    <img src="./foto2.jpeg" class="slide">
+    <img src="./foto3.jpeg" class="slide">
+    <img src="./foto4.jpeg" class="slide">
+    <img src="./foto5.jpeg" class="slide">
+    <img src="./foto6.jpeg" class="slide">
+    <img src="./foto7.jpeg" class="slide">
+  </div>
+
+  <p>Y deseo preguntarte…</p>
+
+  <h3>¿Aceptarías ser mi Valentine? 💌</h3>
+
+  <button class="btn si" onclick="acepta()">💖 Sí, acepto</button>
+  <button class="btn no" id="noBtn">No 🙈</button>
+
+  <div id="resultado" class="result"></div>
+</div>
+
+<script>
+function acepta(){
+  document.getElementById("musica").play();
+  document.getElementById("resultado").innerHTML =
+  "💘 Qué emoción que dijeras que sí 💘<br><br>" +
+  "Prometo no dejar de sorprenderte<br>" +
+  "y ser parte de esos recuerdos que te hagan sonreír ✨";
+}
+
+/* BOTÓN NO ESCAPA */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+  const x = Math.random() * 220;
+  const y = Math.random() * 220;
+  noBtn.style.transform = `translate(${x}px,${y}px)`;
+});
+
+/* CORAZONES */
+for(let i=0;i<25;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*3+4)+"s";
+  document.body.appendChild(h);
+}
+
+/* SLIDESHOW LOOP */
+let slides = document.querySelectorAll(".slide");
+let current = 0;
+
+setInterval(() => {
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
+}, 4000);
+
+</script>
+
+</body>
+</html>
